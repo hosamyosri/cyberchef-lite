@@ -4,69 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CyberChef Lite - GitHub Pages Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>CyberChef Lite</h1>
-    <p class="subtitle">A lightweight CyberChef-style tool for GitHub Pages</p>
+  <main class="container">
+    <header>
+      <h1>CyberChef Lite</h1>
+      <p class="subtitle">A lightweight CyberChef-style tool for GitHub Pages</p>
+    </header>
 
     <!-- Navigation Tabs -->
-    <div class="tabs">
-      <button class="tablink" onclick="openTab(event, 'tools')">🧰 Tools</button>
-      <button class="tablink" onclick="openTab(event, 'profile')">👤 My Profile</button>
-      <button class="tablink" onclick="openTab(event, 'cv')">📄 My CV</button>
-      <button class="tablink" onclick="openTab(event, 'game')">🎮 Fancy Game</button>
-    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tablink" onclick="openTab(event, 'tools')" role="tab" aria-selected="true">🧰 Tools</button>
+      <button class="tablink" onclick="openTab(event, 'profile')" role="tab">👤 My Profile</button>
+      <button class="tablink" onclick="openTab(event, 'cv')" role="tab">📄 My CV</button>
+      <button class="tablink" onclick="openTab(event, 'game')" role="tab">🎮 Fancy Game</button>
+    </nav>
 
     <!-- Tools Tab -->
-    <div id="tools" class="tabcontent">
+    <div id="tools" class="tabcontent" role="tabpanel">
       <!-- Base64 Encoder/Decoder -->
       <section>
         <h2>🔠 Base64 Encoder / Decoder</h2>
-        <textarea id="base64Input" placeholder="Enter text..."></textarea>
-        <br>
-        <button onclick="runBase64('encode')">Encode</button>
-        <button onclick="runBase64('decode')">Decode</button>
-        <pre id="base64Output"></pre>
+        <div class="tool-container">
+          <textarea id="base64Input" placeholder="Enter text..." aria-label="Base64 input"></textarea>
+          <div class="button-group">
+            <button onclick="runBase64('encode')">Encode</button>
+            <button onclick="runBase64('decode')">Decode</button>
+          </div>
+          <pre id="base64Output" aria-live="polite"></pre>
+        </div>
       </section>
 
       <!-- Hash Generator -->
       <section>
         <h2>🔐 Hash Generator (MD5, SHA-256)</h2>
-        <input type="text" id="hashInput" placeholder="Text to hash" />
-        <button onclick="generateHashes()">Generate</button>
-        <pre id="hashOutput"></pre>
+        <div class="tool-container">
+          <input type="text" id="hashInput" placeholder="Text to hash" aria-label="Hash input" />
+          <button onclick="generateHashes()">Generate</button>
+          <pre id="hashOutput" aria-live="polite"></pre>
+        </div>
       </section>
 
       <!-- Regex Extractor -->
       <section>
         <h2>✂️ Extract Data (Emails, IPs, URLs)</h2>
-        <textarea id="regexInput" placeholder="Paste text here..."></textarea>
-        <button onclick="extractData()">Extract</button>
-        <pre id="regexOutput"></pre>
+        <div class="tool-container">
+          <textarea id="regexInput" placeholder="Paste text here..." aria-label="Regex input"></textarea>
+          <button onclick="extractData()">Extract</button>
+          <pre id="regexOutput" aria-live="polite"></pre>
+        </div>
       </section>
 
       <!-- JWT Decoder -->
       <section>
         <h2>📦 JWT Decoder</h2>
-        <input type="text" id="jwtInput" placeholder="Paste JWT token..." />
-        <button onclick="decodeJWT()">Decode</button>
-        <pre id="jwtOutput"></pre>
+        <div class="tool-container">
+          <input type="text" id="jwtInput" placeholder="Paste JWT token..." aria-label="JWT input" />
+          <button onclick="decodeJWT()">Decode</button>
+          <pre id="jwtOutput" aria-live="polite"></pre>
+        </div>
       </section>
 
       <!-- Text Cleaner -->
       <section>
         <h2>🧽 Text Cleaner</h2>
-        <textarea id="cleanInput" placeholder="Paste noisy text..."></textarea>
-        <button onclick="cleanText()">Clean</button>
-        <pre id="cleanOutput"></pre>
+        <div class="tool-container">
+          <textarea id="cleanInput" placeholder="Paste noisy text..." aria-label="Text cleaner input"></textarea>
+          <button onclick="cleanText()">Clean</button>
+          <pre id="cleanOutput" aria-live="polite"></pre>
+        </div>
       </section>
     </div>
 
     <!-- Profile Tab -->
-    <div id="profile" class="tabcontent" style="display:none">
+    <div id="profile" class="tabcontent" role="tabpanel" style="display:none">
       <section>
         <h2>👤 My Profile</h2>
         <p>This section can include your bio, interests, and contact info.</p>
@@ -74,7 +90,7 @@
     </div>
 
     <!-- CV Tab -->
-    <div id="cv" class="tabcontent" style="display:none">
+    <div id="cv" class="tabcontent" role="tabpanel" style="display:none">
       <section>
         <h2>📄 My CV</h2>
         <p>You can embed or link to your resume/CV here using PDF or markdown.</p>
@@ -82,13 +98,13 @@
     </div>
 
     <!-- Game Tab -->
-    <div id="game" class="tabcontent" style="display:none">
+    <div id="game" class="tabcontent" role="tabpanel" style="display:none">
       <section>
         <h2>🎮 Fancy Game</h2>
         <p>This section will include a fun JavaScript-based game (Coming Soon!).</p>
       </section>
     </div>
-  </div>
+  </main>
 
   <script>
     function openTab(evt, tabName) {
@@ -96,13 +112,17 @@
       tabcontent = document.getElementsByClassName("tabcontent");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
+        tabcontent[i].setAttribute("aria-hidden", "true");
       }
       tablinks = document.getElementsByClassName("tablink");
       for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].setAttribute("aria-selected", "false");
       }
       document.getElementById(tabName).style.display = "block";
+      document.getElementById(tabName).setAttribute("aria-hidden", "false");
       evt.currentTarget.className += " active";
+      evt.currentTarget.setAttribute("aria-selected", "true");
     }
   </script>
   <script src="script.js"></script>
