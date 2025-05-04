@@ -1,17 +1,17 @@
-/* Modern color scheme - Dark Theme */
+/* Modern color scheme - Deep Dark Theme */
 :root {
   --primary-color: #60a5fa;
   --secondary-color: #3b82f6;
-  --background-color: #0f172a;
-  --card-bg: #1e293b;
-  --text-color: #e2e8f0;
-  --border-color: #334155;
+  --background-color: #030712;
+  --card-bg: #111827;
+  --text-color: #f3f4f6;
+  --border-color: #1f2937;
   --hover-color: #3b82f6;
   --success-color: #10b981;
   --error-color: #ef4444;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -42,9 +42,24 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #0f172a, #1e293b, #0f172a);
+  background: linear-gradient(45deg, #030712, #111827, #030712);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
+  z-index: -1;
+}
+
+/* Animated particles background */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 20%);
+  animation: particles 20s ease-in-out infinite;
   z-index: -1;
 }
 
@@ -60,6 +75,21 @@ body::before {
   }
 }
 
+@keyframes particles {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -72,12 +102,34 @@ body::before {
 header {
   text-align: center;
   padding: 1.5rem;
-  background: var(--card-bg);
+  background: rgba(17, 24, 39, 0.8);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   margin-bottom: 1rem;
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 h1 {
@@ -88,6 +140,7 @@ h1 {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
 }
 
 .subtitle {
@@ -104,7 +157,7 @@ h1 {
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
-  background: var(--card-bg);
+  background: rgba(17, 24, 39, 0.8);
   padding: 0.75rem;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
@@ -125,13 +178,31 @@ h1 {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.tablink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.tablink:hover::before {
+  transform: translateX(100%);
 }
 
 .tablink:hover {
-  background-color: var(--hover-color);
-  color: white;
+  background-color: rgba(96, 165, 250, 0.1);
+  color: var(--primary-color);
   transform: translateY(-2px);
-  border-color: var(--hover-color);
+  border-color: var(--primary-color);
 }
 
 .tablink.active {
@@ -142,7 +213,7 @@ h1 {
 
 /* Tab content */
 .tabcontent {
-  background: var(--card-bg);
+  background: rgba(17, 24, 39, 0.8);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow: var(--shadow-lg);
@@ -155,15 +226,33 @@ section {
   margin-bottom: 1.5rem;
   padding: 1.5rem;
   border-radius: var(--radius-lg);
-  background-color: rgba(30, 41, 59, 0.5);
+  background-color: rgba(17, 24, 39, 0.6);
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.05), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+section:hover::before {
+  transform: translateX(100%);
 }
 
 section:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  background-color: rgba(30, 41, 59, 0.7);
+  background-color: rgba(17, 24, 39, 0.8);
 }
 
 h2 {
@@ -197,7 +286,7 @@ textarea, input {
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(17, 24, 39, 0.6);
   color: var(--text-color);
 }
 
@@ -220,6 +309,24 @@ button {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+button:hover::before {
+  transform: translateX(100%);
 }
 
 button:hover {
@@ -229,7 +336,7 @@ button:hover {
 }
 
 pre {
-  background-color: #0f172a;
+  background-color: #030712;
   color: #e2e8f0;
   padding: 1rem;
   border-radius: var(--radius-md);
@@ -238,6 +345,18 @@ pre {
   font-family: 'Fira Code', monospace;
   border: 1px solid var(--border-color);
   font-size: 0.9rem;
+  position: relative;
+}
+
+pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.05), transparent);
+  animation: shine 3s infinite;
 }
 
 /* Responsive design */
