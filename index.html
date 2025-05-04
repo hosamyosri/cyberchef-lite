@@ -12,9 +12,15 @@
 </head>
 <body>
   <main class="container">
-    <header>
+    <header style="position:relative;">
       <h1>hosam's tools</h1>
       <p class="subtitle">A lightweight CyberChef-style tool for GitHub Pages</p>
+      <div id="themeSwitcher" style="position:absolute;top:1.5rem;right:2rem;">
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+          <span class="slider"></span>
+        </label>
+      </div>
     </header>
 
     <!-- Navigation Tabs -->

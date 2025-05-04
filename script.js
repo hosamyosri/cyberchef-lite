@@ -522,3 +522,28 @@ function colorConvert() {
   }
   document.getElementById("outputBox").textContent = out;
 }
+
+// THEME SWITCHER LOGIC
+function setTheme(dark) {
+  if (dark) {
+    document.body.classList.add('dark-theme');
+    document.getElementById('themeToggle').checked = true;
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.classList.remove('dark-theme');
+    document.getElementById('themeToggle').checked = false;
+    localStorage.setItem('theme', 'light');
+  }
+}
+function toggleTheme() {
+  setTheme(!document.body.classList.contains('dark-theme'));
+}
+(function() {
+  // On load, set theme from localStorage or system preference
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    setTheme(true);
+  } else {
+    setTheme(false);
+  }
+})();
