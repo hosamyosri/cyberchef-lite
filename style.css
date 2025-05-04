@@ -3,15 +3,15 @@
   --primary-color: #2563eb;
   --secondary-color: #1e40af;
   --background-color: #f8fafc;
-  --card-bg: #ffffff;
+  --card-bg: #fff;
   --text-color: #1e293b;
   --border-color: #e2e8f0;
   --hover-color: #3b82f6;
   --success-color: #10b981;
   --error-color: #ef4444;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.10);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.10);
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -49,60 +49,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Dynamic background animation */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #030712, #111827, #030712);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  z-index: -1;
-}
-
-/* Animated particles background */
+body::before,
 body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(96, 165, 250, 0.1) 0%, transparent 20%),
-    radial-gradient(circle at 80% 70%, rgba(96, 165, 250, 0.1) 0%, transparent 20%);
-  animation: particles 20s ease-in-out infinite;
-  z-index: -1;
+  display: none !important;
 }
-
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes particles {
-  0% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
+body.dark-theme::before,
+body.dark-theme::after {
+  display: block !important;
 }
 
 .container {
@@ -117,17 +70,24 @@ body::after {
 header {
   text-align: center;
   padding: 1.5rem;
-  background: rgba(17, 24, 39, 0.8);
+  background: var(--card-bg);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   margin-bottom: 1rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
+  border: none;
   position: relative;
   overflow: hidden;
 }
-
 header::before {
+  display: none;
+}
+body.dark-theme header {
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+body.dark-theme header::before {
+  display: block;
   content: '';
   position: absolute;
   top: 0;
@@ -172,12 +132,16 @@ h1 {
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
-  background: rgba(17, 24, 39, 0.8);
+  background: var(--card-bg);
   padding: 0.75rem;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px);
+  border: none;
+}
+body.dark-theme .tabs {
+  background: rgba(17, 24, 39, 0.8);
   border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
 }
 
 .tablink {
@@ -214,10 +178,10 @@ h1 {
 }
 
 .tablink:hover {
-  background-color: rgba(96, 165, 250, 0.1);
-  color: var(--primary-color);
+  background-color: var(--hover-color);
+  color: white;
   transform: translateY(-2px);
-  border-color: var(--primary-color);
+  border-color: var(--hover-color);
 }
 
 .tablink.active {
@@ -228,27 +192,38 @@ h1 {
 
 /* Tab content */
 .tabcontent {
-  background: rgba(17, 24, 39, 0.8);
+  background: var(--card-bg);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow: var(--shadow-lg);
   margin-top: 1rem;
-  backdrop-filter: blur(10px);
+  border: none;
+}
+body.dark-theme .tabcontent {
+  background: rgba(17, 24, 39, 0.8);
   border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
 }
 
 section {
   margin-bottom: 1.5rem;
   padding: 1.5rem;
   border-radius: var(--radius-lg);
-  background-color: rgba(17, 24, 39, 0.6);
+  background-color: var(--background-color);
   transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
+  border: none;
   position: relative;
   overflow: hidden;
 }
-
 section::before {
+  display: none;
+}
+body.dark-theme section {
+  background-color: rgba(17, 24, 39, 0.6);
+  border: 1px solid var(--border-color);
+}
+body.dark-theme section::before {
+  display: block;
   content: '';
   position: absolute;
   top: 0;
@@ -259,15 +234,13 @@ section::before {
   transform: translateX(-100%);
   transition: transform 0.5s ease;
 }
-
-section:hover::before {
+body.dark-theme section:hover::before {
   transform: translateX(100%);
 }
 
 section:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  background-color: rgba(17, 24, 39, 0.8);
 }
 
 h2 {
