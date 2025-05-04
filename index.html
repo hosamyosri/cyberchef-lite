@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberChef Lite - GitHub Pages Edition</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>CyberChef Lite</h1>
+    <p class="subtitle">A lightweight CyberChef-style tool for GitHub Pages</p>
+
+    <!-- Base64 Encoder/Decoder -->
+    <section>
+      <h2>🔠 Base64 Encoder / Decoder</h2>
+      <textarea id="base64Input" placeholder="Enter text..."></textarea>
+      <br>
+      <button onclick="runBase64('encode')">Encode</button>
+      <button onclick="runBase64('decode')">Decode</button>
+      <pre id="base64Output"></pre>
+    </section>
+
+    <!-- Hash Generator -->
+    <section>
+      <h2>🔐 Hash Generator (MD5, SHA-256)</h2>
+      <input type="text" id="hashInput" placeholder="Text to hash" />
+      <button onclick="generateHashes()">Generate</button>
+      <pre id="hashOutput"></pre>
+    </section>
+
+    <!-- Regex Extractor -->
+    <section>
+      <h2>✂️ Extract Data (Emails, IPs, URLs)</h2>
+      <textarea id="regexInput" placeholder="Paste text here..."></textarea>
+      <button onclick="extractData()">Extract</button>
+      <pre id="regexOutput"></pre>
+    </section>
+
+    <!-- JWT Decoder -->
+    <section>
+      <h2>📦 JWT Decoder</h2>
+      <input type="text" id="jwtInput" placeholder="Paste JWT token..." />
+      <button onclick="decodeJWT()">Decode</button>
+      <pre id="jwtOutput"></pre>
+    </section>
+
+    <!-- Text Cleaner -->
+    <section>
+      <h2>🧽 Text Cleaner</h2>
+      <textarea id="cleanInput" placeholder="Paste noisy text..."></textarea>
+      <button onclick="cleanText()">Clean</button>
+      <pre id="cleanOutput"></pre>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
