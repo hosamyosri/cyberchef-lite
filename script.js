@@ -105,3 +105,66 @@ function cleanText() {
   const cleaned = [...input].filter(c => c >= ' ' && c <= '~').join("");
   document.getElementById("cleanOutput").textContent = cleaned;
 }
+
+// Fancy Game: Guess the Number
+function renderGuessGame() {
+  const gameArea = document.getElementById('gameArea');
+  gameArea.innerHTML = `
+    <div class="guess-game-container">
+      <p class="guess-game-desc">I'm thinking of a number between <b>1</b> and <b>100</b>. Can you guess it?</p>
+      <input id="guessInput" type="number" min="1" max="100" placeholder="Enter your guess..." />
+      <button onclick="submitGuess()">Guess</button>
+      <div id="guessFeedback" class="guess-feedback"></div>
+      <div id="guessTries" class="guess-tries"></div>
+      <button onclick="resetGuessGame()" class="guess-reset">Restart</button>
+    </div>
+  `;
+  window.secretNumber = Math.floor(Math.random() * 100) + 1;
+  window.guessCount = 0;
+  document.getElementById('guessFeedback').textContent = '';
+  document.getElementById('guessTries').textContent = '';
+}
+
+function submitGuess() {
+  const input = document.getElementById('guessInput');
+  const feedback = document.getElementById('guessFeedback');
+  const tries = document.getElementById('guessTries');
+  const guess = parseInt(input.value, 10);
+  if (isNaN(guess) || guess < 1 || guess > 100) {
+    feedback.textContent = 'Please enter a number between 1 and 100.';
+    feedback.style.color = '#f87171';
+    return;
+  }
+  window.guessCount++;
+  if (guess === window.secretNumber) {
+    feedback.textContent = `🎉 Correct! The number was ${window.secretNumber}.`;
+    feedback.style.color = '#10b981';
+    tries.textContent = `Tries: ${window.guessCount}`;
+  } else if (guess < window.secretNumber) {
+    feedback.textContent = 'Too low! Try a higher number.';
+    feedback.style.color = '#60a5fa';
+    tries.textContent = `Tries: ${window.guessCount}`;
+  } else {
+    feedback.textContent = 'Too high! Try a lower number.';
+    feedback.style.color = '#60a5fa';
+    tries.textContent = `Tries: ${window.guessCount}`;
+  }
+  input.value = '';
+}
+
+function resetGuessGame() {
+  renderGuessGame();
+}
+
+// Auto-render the game when the tab is opened
+const oldOpenTab = window.openTab;
+window.openTab = function(evt, tabName) {
+  oldOpenTab(evt, tabName);
+  if (tabName === 'game') {
+    renderGuessGame();
+  }
+};
+// If the game tab is open on load, render the game
+if (document.getElementById('game').style.display !== 'none') {
+  renderGuessGame();
+}
