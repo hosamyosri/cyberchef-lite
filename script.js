@@ -156,15 +156,115 @@ function resetGuessGame() {
   renderGuessGame();
 }
 
-// Auto-render the game when the tab is opened
-const oldOpenTab = window.openTab;
-window.openTab = function(evt, tabName) {
-  oldOpenTab(evt, tabName);
-  if (tabName === 'game') {
+// Game Switcher
+function switchGame() {
+  const selector = document.getElementById('gameSelector');
+  if (selector.value === 'guess') {
     renderGuessGame();
+  } else if (selector.value === 'memory') {
+    renderMemoryGame();
+  }
+}
+
+// Memory Flip Game
+function renderMemoryGame() {
+  const gameArea = document.getElementById('gameArea');
+  gameArea.innerHTML = `
+    <div class="memory-game-container">
+      <p class="memory-game-desc">Flip the cards and match all pairs!</p>
+      <div class="memory-board" id="memoryBoard"></div>
+      <div class="memory-status" id="memoryStatus"></div>
+      <button onclick="resetMemoryGame()" class="memory-reset">Restart</button>
+    </div>
+  `;
+  startMemoryGame();
+}
+
+function startMemoryGame() {
+  const symbols = ['🍕','🍔','🍟','🌮','🍣','🍩','🍪','🍦'];
+  let cards = symbols.concat(symbols); // 8 pairs
+  cards = shuffle(cards);
+  const board = document.getElementById('memoryBoard');
+  board.innerHTML = '';
+  window.memoryFlipped = [];
+  window.memoryMatched = [];
+  window.memoryTries = 0;
+  window.memoryLock = false;
+  cards.forEach((symbol, idx) => {
+    const card = document.createElement('div');
+    card.className = 'memory-card';
+    card.dataset.symbol = symbol;
+    card.dataset.idx = idx;
+    card.onclick = function() { flipMemoryCard(card); };
+    card.innerHTML = '<span class="memory-card-inner"></span>';
+    board.appendChild(card);
+  });
+  document.getElementById('memoryStatus').textContent = '';
+}
+
+function flipMemoryCard(card) {
+  if (window.memoryLock) return;
+  if (card.classList.contains('matched') || card.classList.contains('flipped')) return;
+  card.classList.add('flipped');
+  card.querySelector('.memory-card-inner').textContent = card.dataset.symbol;
+  window.memoryFlipped.push(card);
+  if (window.memoryFlipped.length === 2) {
+    window.memoryLock = true;
+    window.memoryTries++;
+    setTimeout(() => {
+      const [c1, c2] = window.memoryFlipped;
+      if (c1.dataset.symbol === c2.dataset.symbol) {
+        c1.classList.add('matched');
+        c2.classList.add('matched');
+        window.memoryMatched.push(c1, c2);
+        if (window.memoryMatched.length === 16) {
+          document.getElementById('memoryStatus').textContent = `🎉 You matched all pairs in ${window.memoryTries} tries!`;
+        }
+      } else {
+        c1.classList.remove('flipped');
+        c2.classList.remove('flipped');
+        c1.querySelector('.memory-card-inner').textContent = '';
+        c2.querySelector('.memory-card-inner').textContent = '';
+      }
+      window.memoryFlipped = [];
+      window.memoryLock = false;
+    }, 800);
+  }
+}
+
+function resetMemoryGame() {
+  renderMemoryGame();
+}
+
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
+// Patch openTab to render the correct game
+const oldOpenTab2 = window.openTab;
+window.openTab = function(evt, tabName) {
+  oldOpenTab2(evt, tabName);
+  if (tabName === 'game') {
+    const selector = document.getElementById('gameSelector');
+    if (selector.value === 'memory') {
+      renderMemoryGame();
+    } else {
+      renderGuessGame();
+    }
   }
 };
-// If the game tab is open on load, render the game
+// If the game tab is open on load, render the selected game
 if (document.getElementById('game').style.display !== 'none') {
-  renderGuessGame();
+  const selector = document.getElementById('gameSelector');
+  if (selector && selector.value === 'memory') {
+    renderMemoryGame();
+  } else {
+    renderGuessGame();
+  }
 }

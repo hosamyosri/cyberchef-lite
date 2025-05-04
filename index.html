@@ -63,8 +63,15 @@
     <div id="game" class="tabcontent" style="display:none" role="tabpanel">
       <section>
         <h2><span class="icon">🎮</span> <span>Fancy Game</span></h2>
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          <label for="gameSelector" style="color:var(--primary-color); font-weight:500;">Choose a game: </label>
+          <select id="gameSelector" onchange="switchGame()" style="background:var(--card-bg); color:var(--text-color); border:1px solid var(--border-color); border-radius:6px; padding:0.3rem 1rem;">
+            <option value="guess">Guess the Number</option>
+            <option value="memory">Memory Flip</option>
+          </select>
+        </div>
         <div id="gameArea">
-          <!-- Guess the Number game UI will be injected here -->
+          <!-- Game UI will be injected here -->
         </div>
       </section>
     </div>
