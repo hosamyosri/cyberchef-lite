@@ -33,52 +33,59 @@
 
     <!-- Tools Tab -->
     <div id="tools" class="tabcontent" style="display:block" role="tabpanel">
-      <section>
-        <textarea id="inputBox" placeholder="Enter text here..." rows="7"></textarea>
-        <div class="button-group" style="flex-wrap: wrap; justify-content: center;">
-          <button onclick="runBase64('encode')">Base64 Encode</button>
-          <button onclick="runBase64('decode')">Base64 Decode</button>
-          <button onclick="generateHashes()">SHA-256 Hash</button>
-          <button onclick="caesarCipher('encrypt')">Caesar Cipher Encrypt</button>
-          <button onclick="caesarCipher('decrypt')">Caesar Cipher Decrypt</button>
-          <button onclick="defangURL()">Defang URL</button>
-          <button onclick="fangURL()">Fang URL</button>
-          <button onclick="urlDecode()">URL Decode</button>
-          <button onclick="urlEncode()">URL Encode</button>
-          <button onclick="htmlEncode()">HTML Encode</button>
-          <button onclick="htmlDecode()">HTML Decode</button>
-          <button onclick="base32('encode')">Base32 Encode</button>
-          <button onclick="base32('decode')">Base32 Decode</button>
-          <button onclick="hex('encode')">Hex Encode</button>
-          <button onclick="hex('decode')">Hex Decode</button>
-          <button onclick="binary('encode')">Binary Encode</button>
-          <button onclick="binary('decode')">Binary Decode</button>
-          <button onclick="caseConvert('upper')">UPPERCASE</button>
-          <button onclick="caseConvert('lower')">lowercase</button>
-          <button onclick="caseConvert('title')">Title Case</button>
-          <button onclick="removeDuplicates()">Remove Duplicates</button>
-          <button onclick="sortLines()">Sort Lines</button>
-          <button onclick="countWordsChars()">Word/Char Count</button>
-          <button onclick="trimWhitespace()">Trim Whitespace</button>
-          <button onclick="generateHashesExtra()">SHA-1/SHA-512/RIPEMD160</button>
-          <button onclick="jwtDecode()">JWT Decode</button>
-          <button onclick="cleanText()">Text Cleaner</button>
-          <button onclick="extractRegex()">Regex Extractor</button>
-          <button onclick="uuidGen()">UUID Gen</button>
-          <button onclick="timestampToDate()">Timestamp→Date</button>
-          <button onclick="dateToTimestamp()">Date→Timestamp</button>
-          <button onclick="reverseString()">Reverse</button>
-          <button onclick="rot13()">ROT13</button>
-          <button onclick="jsonFormat()">JSON Format</button>
-          <button onclick="jsonMinify()">JSON Minify</button>
-          <button onclick="csvToJson()">CSV→JSON</button>
-          <button onclick="randomPassword()">Password Gen</button>
-          <button onclick="morse('encode')">Morse Encode</button>
-          <button onclick="morse('decode')">Morse Decode</button>
-          <button onclick="colorConvert()">Color Convert</button>
-        </div>
-        <pre id="outputBox" placeholder="Output..." rows="7"></pre>
+      <div class="tools-layout">
+        <aside class="tools-sidebar">
+          <input type="text" id="toolSearch" placeholder="Search operations..." style="width:100%;margin-bottom:1rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:1rem;">
+          <div class="tool-container">
+            <button onclick="runBase64('encode')"><span class="tool-icon">🡅</span>Base64 Encode</button>
+            <button onclick="runBase64('decode')"><span class="tool-icon">🡇</span>Base64 Decode</button>
+            <button onclick="generateHashes()"><span class="tool-icon">🔒</span>SHA-256 Hash</button>
+            <button onclick="caesarCipher('encrypt')"><span class="tool-icon">🔐</span>Caesar Cipher Encrypt</button>
+            <button onclick="caesarCipher('decrypt')"><span class="tool-icon">🔓</span>Caesar Cipher Decrypt</button>
+            <button onclick="defangURL()"><span class="tool-icon">🛡️</span>Defang URL</button>
+            <button onclick="fangURL()"><span class="tool-icon">🗡️</span>Fang URL</button>
+            <button onclick="urlDecode()"><span class="tool-icon">🔽</span>URL Decode</button>
+            <button onclick="urlEncode()"><span class="tool-icon">🔼</span>URL Encode</button>
+            <button onclick="htmlEncode()"><span class="tool-icon">&lt;/&gt;</span>HTML Encode</button>
+            <button onclick="htmlDecode()"><span class="tool-icon">&lt;/&gt;</span>HTML Decode</button>
+            <button onclick="base32('encode')"><span class="tool-icon">🡅</span>Base32 Encode</button>
+            <button onclick="base32('decode')"><span class="tool-icon">🡇</span>Base32 Decode</button>
+            <button onclick="hex('encode')"><span class="tool-icon">#</span>Hex Encode</button>
+            <button onclick="hex('decode')"><span class="tool-icon">#</span>Hex Decode</button>
+            <button onclick="binary('encode')"><span class="tool-icon">1️⃣</span>Binary Encode</button>
+            <button onclick="binary('decode')"><span class="tool-icon">0️⃣</span>Binary Decode</button>
+            <button onclick="caseConvert('upper')"><span class="tool-icon">🔠</span>UPPERCASE</button>
+            <button onclick="caseConvert('lower')"><span class="tool-icon">🔡</span>lowercase</button>
+            <button onclick="caseConvert('title')"><span class="tool-icon">📝</span>Title Case</button>
+            <button onclick="removeDuplicates()"><span class="tool-icon">🚫</span>Remove Duplicates</button>
+            <button onclick="sortLines()"><span class="tool-icon">↕️</span>Sort Lines</button>
+            <button onclick="countWordsChars()"><span class="tool-icon">🔢</span>Word/Char Count</button>
+            <button onclick="trimWhitespace()"><span class="tool-icon">✂️</span>Trim Whitespace</button>
+            <button onclick="generateHashesExtra()"><span class="tool-icon">🔑</span>SHA-1/SHA-512/RIPEMD160</button>
+            <button onclick="jwtDecode()"><span class="tool-icon">🧾</span>JWT Decode</button>
+            <button onclick="cleanText()"><span class="tool-icon">🧹</span>Text Cleaner</button>
+            <button onclick="extractRegex()"><span class="tool-icon">🔍</span>Regex Extractor</button>
+            <button onclick="uuidGen()"><span class="tool-icon">🆔</span>UUID Gen</button>
+            <button onclick="timestampToDate()"><span class="tool-icon">⏰</span>Timestamp→Date</button>
+            <button onclick="dateToTimestamp()"><span class="tool-icon">📅</span>Date→Timestamp</button>
+            <button onclick="reverseString()"><span class="tool-icon">🔄</span>Reverse</button>
+            <button onclick="rot13()"><span class="tool-icon">🔁</span>ROT13</button>
+            <button onclick="jsonFormat()"><span class="tool-icon">🗂️</span>JSON Format</button>
+            <button onclick="jsonMinify()"><span class="tool-icon">📦</span>JSON Minify</button>
+            <button onclick="csvToJson()"><span class="tool-icon">🔃</span>CSV→JSON</button>
+            <button onclick="randomPassword()"><span class="tool-icon">🔏</span>Password Gen</button>
+            <button onclick="morse('encode')"><span class="tool-icon">•–</span>Morse Encode</button>
+            <button onclick="morse('decode')"><span class="tool-icon">–•</span>Morse Decode</button>
+            <button onclick="colorConvert()"><span class="tool-icon">🎨</span>Color Convert</button>
+          </div>
+        </aside>
+        <section class="tools-main">
+          <label for="inputBox" style="font-weight:600;margin-bottom:0.5rem;display:block;">Input</label>
+          <textarea id="inputBox" placeholder="Enter text here..." rows="7"></textarea>
+          <label for="outputBox" style="font-weight:600;margin-bottom:0.5rem;display:block;">Output</label>
+          <pre id="outputBox" placeholder="Output..." rows="7"></pre>
       </section>
+      </div>
     </div>
 
     <!-- Profile Tab -->

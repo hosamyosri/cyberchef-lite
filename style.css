@@ -95,7 +95,7 @@ body::after {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1700px;
   margin: 0 auto;
   padding: 1.5rem;
   display: flex;
@@ -289,18 +289,40 @@ h2 {
 }
 
 /* Tool containers */
-.tool-container {
+.tool-container, .button-group {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
   margin: 0.75rem 0;
 }
 
-.button-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+.button-group button, .tool-container button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.7em;
+  width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  background: #232a36 !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #334155 !important;
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.button-group button:hover, .tool-container button:hover {
+  background: #334155 !important;
+  color: #60a5fa !important;
+  border-color: #60a5fa !important;
 }
 
 /* Form elements */
@@ -666,4 +688,136 @@ body.dark-theme h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+}
+
+/* Tools Sidebar Layout */
+.tools-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+.tools-sidebar {
+  max-width: none;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  padding: 0 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.tools-sidebar .tool-container {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  height: 340px;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  direction: rtl;
+  background: transparent;
+  border-radius: var(--radius-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--card-bg);
+}
+.tools-sidebar .tool-container > * {
+  direction: ltr;
+}
+.tools-sidebar .tool-container::-webkit-scrollbar {
+  width: 6px;
+  background: var(--card-bg);
+}
+.tools-sidebar .tool-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 6px;
+}
+body.dark-theme .tools-sidebar .tool-container::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+}
+.tools-sidebar .tool-container::-webkit-scrollbar-track {
+  background: var(--card-bg);
+}
+.tools-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-left: 2.5rem;
+  min-width: 0;
+}
+.tools-sidebar .tool-container button {
+  background: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  width: 100%;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  font-size: 0.92rem;
+  padding: 0.1rem 0.7rem 0.1rem 2.1rem;
+  text-align: left;
+  position: relative;
+  white-space: normal;
+  overflow: hidden;
+  font-family: inherit;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.tools-sidebar .tool-container button:hover {
+  background: var(--hover-color) !important;
+  color: #fff !important;
+  border-color: var(--primary-color) !important;
+}
+body.dark-theme .tools-sidebar .tool-container button {
+  background: #232a36 !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #334155 !important;
+}
+body.dark-theme .tools-sidebar .tool-container button:hover {
+  background: #334155 !important;
+  color: #60a5fa !important;
+  border-color: #60a5fa !important;
+}
+.tools-sidebar .tool-container button .tool-icon {
+  left: 0.7rem;
+  font-size: 1em;
+}
+.tools-main textarea,
+.tools-main pre {
+  min-height: 160px;
+  max-height: 160px;
+  height: 160px;
+  width: 100%;
+  resize: none;
+  font-size: 1.05rem;
+  font-family: 'Fira Code', monospace;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+}
+.tools-main pre {
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+@media (max-width: 1100px) {
+  .tools-sidebar .tool-container {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    max-height: 220px;
+  }
+}
+@media (max-width: 700px) {
+  .tools-sidebar .tool-container {
+    grid-template-columns: 1fr;
+    max-height: 160px;
+  }
+  .tools-main {
+    margin-left: 0;
+  }
 }
