@@ -19,22 +19,43 @@
 
     <!-- Navigation Tabs -->
     <nav class="tabs" role="tablist">
-      <button class="tablink" onclick="openTab(event, 'tools')" role="tab" aria-selected="true">🧰 Tools</button>
-      <button class="tablink" onclick="openTab(event, 'profile')" role="tab">👤 My Profile</button>
-      <button class="tablink" onclick="openTab(event, 'cv')" role="tab">📄 My CV</button>
-      <button class="tablink" onclick="openTab(event, 'game')" role="tab">🎮 Fancy Game</button>
+      <button class="tablink" onclick="openTab(event, 'tools')" role="tab" aria-selected="true">
+        <span class="icon">🧰</span>
+        <span class="text">Tools</span>
+      </button>
+      <button class="tablink" onclick="openTab(event, 'profile')" role="tab">
+        <span class="icon">👤</span>
+        <span class="text">My Profile</span>
+      </button>
+      <button class="tablink" onclick="openTab(event, 'cv')" role="tab">
+        <span class="icon">📄</span>
+        <span class="text">My CV</span>
+      </button>
+      <button class="tablink" onclick="openTab(event, 'game')" role="tab">
+        <span class="icon">🎮</span>
+        <span class="text">Fancy Game</span>
+      </button>
     </nav>
 
     <!-- Tools Tab -->
     <div id="tools" class="tabcontent" role="tabpanel">
       <!-- Base64 Encoder/Decoder -->
       <section>
-        <h2>🔠 Base64 Encoder / Decoder</h2>
+        <h2>
+          <span class="icon">🔠</span>
+          <span>Base64 Encoder / Decoder</span>
+        </h2>
         <div class="tool-container">
           <textarea id="base64Input" placeholder="Enter text..." aria-label="Base64 input"></textarea>
           <div class="button-group">
-            <button onclick="runBase64('encode')">Encode</button>
-            <button onclick="runBase64('decode')">Decode</button>
+            <button onclick="runBase64('encode')">
+              <span class="icon">🔒</span>
+              <span>Encode</span>
+            </button>
+            <button onclick="runBase64('decode')">
+              <span class="icon">🔓</span>
+              <span>Decode</span>
+            </button>
           </div>
           <pre id="base64Output" aria-live="polite"></pre>
         </div>
@@ -42,40 +63,64 @@
 
       <!-- Hash Generator -->
       <section>
-        <h2>🔐 Hash Generator (MD5, SHA-256)</h2>
+        <h2>
+          <span class="icon">🔐</span>
+          <span>Hash Generator (MD5, SHA-256)</span>
+        </h2>
         <div class="tool-container">
           <input type="text" id="hashInput" placeholder="Text to hash" aria-label="Hash input" />
-          <button onclick="generateHashes()">Generate</button>
+          <button onclick="generateHashes()">
+            <span class="icon">⚡</span>
+            <span>Generate</span>
+          </button>
           <pre id="hashOutput" aria-live="polite"></pre>
         </div>
       </section>
 
       <!-- Regex Extractor -->
       <section>
-        <h2>✂️ Extract Data (Emails, IPs, URLs)</h2>
+        <h2>
+          <span class="icon">✂️</span>
+          <span>Extract Data (Emails, IPs, URLs)</span>
+        </h2>
         <div class="tool-container">
           <textarea id="regexInput" placeholder="Paste text here..." aria-label="Regex input"></textarea>
-          <button onclick="extractData()">Extract</button>
+          <button onclick="extractData()">
+            <span class="icon">🔍</span>
+            <span>Extract</span>
+          </button>
           <pre id="regexOutput" aria-live="polite"></pre>
         </div>
       </section>
 
       <!-- JWT Decoder -->
       <section>
-        <h2>📦 JWT Decoder</h2>
+        <h2>
+          <span class="icon">📦</span>
+          <span>JWT Decoder</span>
+        </h2>
         <div class="tool-container">
           <input type="text" id="jwtInput" placeholder="Paste JWT token..." aria-label="JWT input" />
-          <button onclick="decodeJWT()">Decode</button>
+          <button onclick="decodeJWT()">
+            <span class="icon">🔍</span>
+            <span>Decode</span>
+          </button>
           <pre id="jwtOutput" aria-live="polite"></pre>
         </div>
       </section>
 
       <!-- Text Cleaner -->
       <section>
-        <h2>🧽 Text Cleaner</h2>
+        <h2>
+          <span class="icon">🧽</span>
+          <span>Text Cleaner</span>
+        </h2>
         <div class="tool-container">
           <textarea id="cleanInput" placeholder="Paste noisy text..." aria-label="Text cleaner input"></textarea>
-          <button onclick="cleanText()">Clean</button>
+          <button onclick="cleanText()">
+            <span class="icon">✨</span>
+            <span>Clean</span>
+          </button>
           <pre id="cleanOutput" aria-live="polite"></pre>
         </div>
       </section>
@@ -84,7 +129,10 @@
     <!-- Profile Tab -->
     <div id="profile" class="tabcontent" role="tabpanel" style="display:none">
       <section>
-        <h2>👤 My Profile</h2>
+        <h2>
+          <span class="icon">👤</span>
+          <span>My Profile</span>
+        </h2>
         <p>This section can include your bio, interests, and contact info.</p>
       </section>
     </div>
@@ -92,7 +140,10 @@
     <!-- CV Tab -->
     <div id="cv" class="tabcontent" role="tabpanel" style="display:none">
       <section>
-        <h2>📄 My CV</h2>
+        <h2>
+          <span class="icon">📄</span>
+          <span>My CV</span>
+        </h2>
         <p>You can embed or link to your resume/CV here using PDF or markdown.</p>
       </section>
     </div>
@@ -100,7 +151,10 @@
     <!-- Game Tab -->
     <div id="game" class="tabcontent" role="tabpanel" style="display:none">
       <section>
-        <h2>🎮 Fancy Game</h2>
+        <h2>
+          <span class="icon">🎮</span>
+          <span>Fancy Game</span>
+        </h2>
         <p>This section will include a fun JavaScript-based game (Coming Soon!).</p>
       </section>
     </div>
