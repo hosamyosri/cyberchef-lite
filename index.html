@@ -1,144 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hosam's Toolkit | CyberChef Alternative</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hosam's tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-  <!-- Animated Background Particles -->
-  <div id="particles-js"></div>
-  
-  <!-- Floating Action Button -->
-  <div class="fab" id="fabMenu">
-    <button class="fab-main" onclick="toggleFab()">
-      <i class="fas fa-bolt"></i>
-    </button>
-    <div class="fab-options">
-      <button onclick="copyOutput()" title="Copy Output">
-        <i class="far fa-copy"></i>
-      </button>
-      <button onclick="clearInput()" title="Clear Input">
-        <i class="fas fa-eraser"></i>
-      </button>
-      <button onclick="randomPassword()" title="Generate Password">
-        <i class="fas fa-key"></i>
-      </button>
-    </div>
-  </div>
-
   <main class="container">
-    <!-- Header with Animated Gradient -->
-    <header class="glass-header">
-      <div class="header-content">
-        <h1 class="gradient-text">Hosam's Toolkit</h1>
-        <p class="subtitle">A lightweight CyberChef-style tool for security professionals</p>
-      </div>
-      
-      <div class="header-actions">
-        <div class="theme-switch-container">
-          <label class="theme-switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="slider">
-              <span class="sun"><i class="fas fa-sun"></i></span>
-              <span class="moon"><i class="fas fa-moon"></i></span>
-            </span>
-          </label>
-        </div>
-        <button class="btn-donate" onclick="showDonate()">
-          <i class="fas fa-coffee"></i> Support
-        </button>
+    <header style="position:relative;">
+      <h1>hosam's tools</h1>
+      <p class="subtitle">A lightweight CyberChef-style tool for GitHub Pages</p>
+      <div id="themeSwitcher" style="position:absolute;top:1.5rem;right:2rem;">
+        <label class="theme-switch">
+          <input type="checkbox" id="themeToggle" onchange="toggleTheme()">
+          <span class="slider"></span>
+        </label>
       </div>
     </header>
 
-    <!-- Navigation Tabs with Icons -->
-    <nav class="tabs-container">
-      <div class="tabs-scroller">
-        <button class="tab active" data-tab="tools">
-          <i class="fas fa-tools"></i> Tools
-        </button>
-        <button class="tab" data-tab="profile">
-          <i class="fas fa-user"></i> Profile
-        </button>
-        <button class="tab" data-tab="cv">
-          <i class="fas fa-file-alt"></i> CV
-        </button>
-        <button class="tab" data-tab="game">
-          <i class="fas fa-gamepad"></i> Games
-        </button>
-      </div>
-      <div class="tab-indicator"></div>
+    <!-- Navigation Tabs -->
+    <nav class="tabs" role="tablist">
+      <button class="tablink active" onclick="openTab(event, 'tools')" role="tab" aria-selected="true">🧰 Tools</button>
+      <button class="tablink" onclick="openTab(event, 'profile')" role="tab">👤 My Profile</button>
+      <button class="tablink" onclick="openTab(event, 'cv')" role="tab">📄 My CV</button>
+      <button class="tablink" onclick="openTab(event, 'game')" role="tab">🎮 Fancy Game</button>
     </nav>
 
-    <!-- Main Content Area -->
-    <div class="content-area">
-      <!-- Tools Tab -->
-      <div id="tools" class="tab-content active">
-        <div class="io-container">
-          <div class="input-container">
-            <div class="toolbar">
-              <button class="btn-clear" onclick="clearInput()">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-              <span class="char-count" id="charCount">0 chars</span>
-            </div>
-            <textarea id="inputBox" placeholder="Enter text here..." spellcheck="false"></textarea>
-          </div>
-          
-          <div class="output-container">
-            <div class="toolbar">
-              <button class="btn-copy" onclick="copyOutput()">
-                <i class="far fa-copy"></i>
-              </button>
-            </div>
-            <pre id="outputBox" placeholder="Results will appear here..."></pre>
-          </div>
+    <!-- Tools Tab -->
+    <div id="tools" class="tabcontent" style="display:block" role="tabpanel">
+      <section>
+        <textarea id="inputBox" placeholder="Enter text here..." rows="7"></textarea>
+        <div class="button-group" style="flex-wrap: wrap; justify-content: center;">
+          <button onclick="runBase64('encode')">Base64 Encode</button>
+          <button onclick="runBase64('decode')">Base64 Decode</button>
+          <button onclick="generateHashes()">SHA-256 Hash</button>
+          <button onclick="caesarCipher('encrypt')">Caesar Cipher Encrypt</button>
+          <button onclick="caesarCipher('decrypt')">Caesar Cipher Decrypt</button>
+          <button onclick="defangURL()">Defang URL</button>
+          <button onclick="fangURL()">Fang URL</button>
+          <button onclick="urlDecode()">URL Decode</button>
+          <button onclick="urlEncode()">URL Encode</button>
+          <button onclick="htmlEncode()">HTML Encode</button>
+          <button onclick="htmlDecode()">HTML Decode</button>
+          <button onclick="base32('encode')">Base32 Encode</button>
+          <button onclick="base32('decode')">Base32 Decode</button>
+          <button onclick="hex('encode')">Hex Encode</button>
+          <button onclick="hex('decode')">Hex Decode</button>
+          <button onclick="binary('encode')">Binary Encode</button>
+          <button onclick="binary('decode')">Binary Decode</button>
+          <button onclick="caseConvert('upper')">UPPERCASE</button>
+          <button onclick="caseConvert('lower')">lowercase</button>
+          <button onclick="caseConvert('title')">Title Case</button>
+          <button onclick="removeDuplicates()">Remove Duplicates</button>
+          <button onclick="sortLines()">Sort Lines</button>
+          <button onclick="countWordsChars()">Word/Char Count</button>
+          <button onclick="trimWhitespace()">Trim Whitespace</button>
+          <button onclick="generateHashesExtra()">SHA-1/SHA-512/RIPEMD160</button>
+          <button onclick="jwtDecode()">JWT Decode</button>
+          <button onclick="cleanText()">Text Cleaner</button>
+          <button onclick="extractRegex()">Regex Extractor</button>
+          <button onclick="uuidGen()">UUID Gen</button>
+          <button onclick="timestampToDate()">Timestamp→Date</button>
+          <button onclick="dateToTimestamp()">Date→Timestamp</button>
+          <button onclick="reverseString()">Reverse</button>
+          <button onclick="rot13()">ROT13</button>
+          <button onclick="jsonFormat()">JSON Format</button>
+          <button onclick="jsonMinify()">JSON Minify</button>
+          <button onclick="csvToJson()">CSV→JSON</button>
+          <button onclick="randomPassword()">Password Gen</button>
+          <button onclick="morse('encode')">Morse Encode</button>
+          <button onclick="morse('decode')">Morse Decode</button>
+          <button onclick="colorConvert()">Color Convert</button>
         </div>
+        <pre id="outputBox" placeholder="Output..." rows="7"></pre>
+      </section>
+    </div>
 
-        <!-- Tool Categories with Collapsible Sections -->
-        <div class="tool-categories">
-          <div class="category">
-            <button class="category-header">
-              <i class="fas fa-lock"></i> Encryption
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="category-tools">
-              <button onclick="runBase64('encode')">Base64 Encode</button>
-              <button onclick="runBase64('decode')">Base64 Decode</button>
-              <!-- More encryption tools... -->
-            </div>
-          </div>
-          
-          <div class="category">
-            <button class="category-header">
-              <i class="fas fa-hashtag"></i> Hashing
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="category-tools">
-              <button onclick="generateHashes()">SHA-256 Hash</button>
-              <button onclick="generateHashesExtra()">SHA-1/512</button>
-              <!-- More hashing tools... -->
-            </div>
-          </div>
-          
-          <!-- More categories... -->
+    <!-- Profile Tab -->
+    <div id="profile" class="tabcontent" style="display:none" role="tabpanel">
+      <section>
+        <h2><span class="icon">👤</span> <span>My Profile</span></h2>
+        <p>This section can include your bio, interests, and contact info.</p>
+      </section>
+    </div>
+
+    <!-- CV Tab -->
+    <div id="cv" class="tabcontent" style="display:none" role="tabpanel">
+      <section>
+        <h2><span class="icon">📄</span> <span>My CV</span></h2>
+        <p>You can embed or link to your resume/CV here using PDF or markdown.</p>
+      </section>
+    </div>
+
+    <!-- Game Tab -->
+    <div id="game" class="tabcontent" style="display:none" role="tabpanel">
+      <section>
+        <h2><span class="icon">🎮</span> <span>Fancy Game</span></h2>
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          <label for="gameSelector" style="color:var(--primary-color); font-weight:500;">Choose a game: </label>
+          <select id="gameSelector" onchange="switchGame()" style="background:var(--card-bg); color:var(--text-color); border:1px solid var(--border-color); border-radius:6px; padding:0.3rem 1rem;">
+            <option value="guess">Guess the Number</option>
+            <option value="memory">Memory Flip</option>
+          </select>
         </div>
-      </div>
-
-      <!-- Other tabs... -->
+        <div id="gameArea">
+          <!-- Game UI will be injected here -->
+        </div>
+      </section>
     </div>
   </main>
-
-  <!-- Toast Notifications -->
-  <div id="toast" class="toast"></div>
-
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="js/script.js"></script>
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].setAttribute("aria-hidden", "true");
+      }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].setAttribute("aria-selected", "false");
+      }
+      document.getElementById(tabName).style.display = "block";
+      document.getElementById(tabName).setAttribute("aria-hidden", "false");
+      evt.currentTarget.className += " active";
+      evt.currentTarget.setAttribute("aria-selected", "true");
+    }
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
