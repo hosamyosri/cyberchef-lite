@@ -1,7 +1,7 @@
-// Base64 Encode/Decode
+// Unified Base64 Encode/Decode
 function runBase64(mode) {
-  const input = document.getElementById("base64Input").value;
-  const output = document.getElementById("base64Output");
+  const input = document.getElementById("inputBox").value;
+  const output = document.getElementById("outputBox");
   try {
     if (mode === "encode") {
       output.textContent = btoa(input);
@@ -13,20 +13,60 @@ function runBase64(mode) {
   }
 }
 
-// Hash Generator
+// Unified Hash Generator (SHA-256)
 function generateHashes() {
-  const input = document.getElementById("hashInput").value;
+  const input = document.getElementById("inputBox").value;
   const encoder = new TextEncoder();
   const data = encoder.encode(input);
-  const output = document.getElementById("hashOutput");
+  const output = document.getElementById("outputBox");
 
   window.crypto.subtle.digest("SHA-256", data).then(buffer => {
     const hashArray = Array.from(new Uint8Array(buffer));
     const sha256 = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     const md5 = CryptoJS.MD5(input).toString();
-
     output.textContent = `MD5   : ${md5}\nSHA256: ${sha256}`;
   });
+}
+
+// Caesar Cipher Encrypt/Decrypt
+function caesarCipher(mode) {
+  const input = document.getElementById("inputBox").value;
+  let shift = 3; // Default Caesar shift
+  if (mode === 'decrypt') shift = 26 - shift;
+  const output = document.getElementById("outputBox");
+  const result = input.replace(/[a-z]/gi, c => {
+    const base = c >= 'a' && c <= 'z' ? 97 : 65;
+    if (!/[a-z]/i.test(c)) return c;
+    return String.fromCharCode(((c.charCodeAt(0) - base + shift) % 26) + base);
+  });
+  output.textContent = result;
+}
+
+// Defang URL
+function defangURL() {
+  const input = document.getElementById("inputBox").value;
+  const output = document.getElementById("outputBox");
+  const defanged = input.replace(/\./g, '[.]').replace(/http/g, 'hxxp');
+  output.textContent = defanged;
+}
+
+// Fang URL
+function fangURL() {
+  const input = document.getElementById("inputBox").value;
+  const output = document.getElementById("outputBox");
+  const fanged = input.replace(/\[\.\]/g, '.').replace(/hxxp/g, 'http');
+  output.textContent = fanged;
+}
+
+// URL Decode
+function urlDecode() {
+  const input = document.getElementById("inputBox").value;
+  const output = document.getElementById("outputBox");
+  try {
+    output.textContent = decodeURIComponent(input);
+  } catch (e) {
+    output.textContent = "⚠️ Invalid URL encoding: " + e.message;
+  }
 }
 
 // Regex Extractor
